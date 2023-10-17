@@ -1,0 +1,13 @@
+---
+title: "LEW Bo Cong"
+about:
+  template: trestles
+  image: photo_of_myself.jpg
+  image-shape: rounded
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/bocongg/my-first-repos
+---
+
+Hello! I am currently a Year 3 NUS student majoring in Life Sciences. Prior to entering university, I studied Biomedical Sciences at Singapore Polytechnic. My hobbies include photography, videography, and watching films (just finished watching the last season of The Blacklist!). If you are interested, I have a photography IG account ([\@mbe.z](https://www.instagram.com/mbe.z/)) but I haven't been updating it recently because of school... I will be participating in the Student Exchange Program at the University of Sydney in the next semester, and I am excited to get back into photography and perhaps videography!

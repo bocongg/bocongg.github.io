@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "NM2207"
+  back-to-top-navigation: true
+  search: false
+  navbar:
+    background: secondary
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About me
+
+format:
+  html:
+    theme: sandstone
+    css: styles.css
+    toc: true
+
+editor: visual
+

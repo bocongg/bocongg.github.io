@@ -1,0 +1,24 @@
+---
+title: "Challenge-1"
+author: "Lew Bo Cong"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## About myself
+
+Hello! I am currently a Year 3 NUS student majoring in Life Sciences. Prior to entering university, I studied Biomedical Sciences at Singapore Polytechnic. My hobbies include photography, videography, and watching films (currently watching Tulsa King!). If you are interested, I have a photography IG account (@mbe.z) but I haven't been updating it recently because of school... I will be participating in the Student Exchange Program at the University of Sydney in the next semester, and I am excited to get back into photography and perhaps videography!
+
+```{r, out.height= "300px",out.width= "225px",echo=FALSE,eval=TRUE,fig.align='center',fig.cap="At Haji Lane!"}
+knitr::include_graphics("C:/Users/bcong/Desktop/Uni Materials/NM2207 Computational Media Literacy/Week 1/photo_of_myself.jpg")
+```
+
+```{r, out.height= "262px",out.width= "465px",echo=FALSE,eval=TRUE,fig.align='center',fig.cap="Screenshot of my R Studio layout"}
+knitr::include_graphics("C:/Users/bcong/Desktop/Uni Materials/NM2207 Computational Media Literacy/Week 1/Challenge 1 ss.png")
+```
