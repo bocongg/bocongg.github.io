@@ -3,3 +3,5 @@ title: "Data story project"
 ---
 
 Website under construction! Meanwhile please check out the "About me" page :)
+
+![Source: https://gifer.com/en/YVPE](construction.gif){fig-align="left" width="424"}
