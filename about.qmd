@@ -6,7 +6,7 @@ about:
   image-shape: rounded
   links:
     - icon: github
-      text: Github
+      text: Github (Click here for NM2207 folders)
       href: https://github.com/bocongg/my-NM2207-repo
     - icon: instagram
       text: mbe.z
