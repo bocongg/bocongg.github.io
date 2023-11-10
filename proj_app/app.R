@@ -215,19 +215,14 @@ nav_panelplota <- function(datagrp, tabicon){
   nav_panel(
     title = datagrp,
     grid_container(
-      layout = c("calendar  barchart"),
+      layout = c("calendar"),
       gap_size = "0px",
-      col_sizes = c("1fr", "1fr"),
+      col_sizes = c("1fr"),
       row_sizes = c("1fr"),
       grid_card(
         area = "calendar",
         full_screen = TRUE,
         card_body(plotlyOutputgrp(datagrp, plotname = "calendar"))
-      ),
-      grid_card(
-        area = "barchart",
-        full_screen = TRUE,
-        card_body(plotlyOutputgrp(datagrp, plotname = "barchart"))
       )
     ),
     icon = icon(tabicon)
@@ -366,12 +361,14 @@ ui <- page_navbar(
             nav_panelplota("EMD Attendance", "person")
           ),
           grid_container(
-            layout = c("header        header",
-                       "linebarchart1 scatterplot1",
-                       "linebarchart2 scatterplot2"),
+            layout = c("header",
+                       "linebarchart1",
+                       "scatterplot1",
+                       "linebarchart2",
+                       "scatterplot2"),
             gap_size = "0px",
-            col_sizes = c("1fr", "1fr"),
-            row_sizes = c("50px","1fr", "1fr"),
+            col_sizes = c("1fr"),
+            row_sizes = c("50px","500px", "500px", "500px", "500px"),
             grid_card_text(
               content = "Multi-variable analysis",
               alignment = "start",
