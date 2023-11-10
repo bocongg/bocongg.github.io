@@ -6,7 +6,17 @@
     "docOutlineVisible": "0",
     "rmdVisualCollapsedChunks": "",
     "rmdVisualModeLocation": "3086:1315.199951171875",
+<<<<<<< HEAD
     "cursorPosition": "100,52",
     "scrollLine": "61",
+=======
+<<<<<<< HEAD
+    "cursorPosition": "15,18",
+    "scrollLine": "7",
+=======
+    "cursorPosition": "26,30",
+    "scrollLine": "18",
+>>>>>>> 2d19b8c6fdab110843018c99077710ab68b2bb2f
+>>>>>>> cf7d5ff0627ce1d41b23cea3d5d46429698e6acf
     "docOutlineSize": "87"
 }

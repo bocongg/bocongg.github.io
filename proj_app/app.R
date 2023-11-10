@@ -295,7 +295,7 @@ ui <- page_navbar(
   title = "Data Dashboard",
   selected = "Multi-hospital analysis",
   collapsible = TRUE,
-  
+
   ##################################### Tab 1 ###################################,
   nav_panel(
     title = "Multi-hospital analysis",
@@ -428,6 +428,7 @@ server <- function(input, output) {
     plotboxdata(final_dataset, x = "EMD Attendance", input$startmthInput, input$startdateId, input$endmthInput, input$enddateId, input$SH, input$NUHS, input$NHG)
   })
   
+
   output$WTcalendar <- renderPlotly({
     plotcaldata(final_dataset, x = "Waiting Time", input$choosehosp)
   })
@@ -459,10 +460,6 @@ server <- function(input, output) {
       config(displayModeBar = FALSE) %>%
       layout(dragmode = FALSE)
   })
-  
-  
-  
-  
   
 }
 

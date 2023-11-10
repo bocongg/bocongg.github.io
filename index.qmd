@@ -1,5 +1,7 @@
 ---
 title: "Data story project"
+filters:
+  - shinylive
 ---
 
 ### What contributes to the difference in wait times for admission to wards in local public hospitals?
