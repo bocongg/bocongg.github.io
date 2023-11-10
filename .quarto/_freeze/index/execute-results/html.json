@@ -1,7 +1,7 @@
 {
-  "hash": "c5a1eae78a424c4bd2dc97abeb010e73",
+  "hash": "3fd4308eb0426c8c9a85574365ee8bc2",
   "result": {
-    "markdown": "---\ntitle: \"Data story project\"\n---\n\n\nThis is a Quarto website.\n\nTo learn more about Quarto websites visit <https://quarto.org/docs/websites>.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "markdown": "---\ntitle: \"Data story project\"\n---\n\n\n### What contributes to the difference in wait times for admission to wards in local public hospitals?\n\nThe CNA had reported in April 2023 that the median waiting time for ward admissions had increased from about 5 hours to 7.2 hours during that period^[1](https://www.channelnewsasia.com/singapore/moh-hospital-waiting-times-7-hours-covid-19-3442136)^. The health ministry had explained that it was due to the rise in number of older patients with more complex medical needs requiring longer hospitalisation^[1](https://www.channelnewsasia.com/singapore/moh-hospital-waiting-times-7-hours-covid-19-3442136)^. Due to the ageing population in Singapore, long waiting time for admission to wards has been a long-standing issue over the years, and it was further exacerbated by the Covid-19 pandemic^[2](https://www.channelnewsasia.com/singapore/hospitals-beds-waiting-time-50-hours-admission-ng-teng-fong-sengkang-3014596),[3](https://www.straitstimes.com/singapore/health/most-public-hospitals-saw-more-ae-patients-in-past-week-compared-with-past-month)^.\n\n\n::: {.cell}\n\n:::\n\n``` {=html}\n<iframe height=\"1100\" width=\"100%\" frameborder=\"no\" src=\"https://bocongg.shinyapps.io/proj_app/\"> </iframe>\n```\n\n\n\n#### Bar chart\n\n::: {.cell}\n\n:::\n\n\n#### Calendar Heatmap\n\n::: {.cell}\n\n:::\n\n\n#### Line + bar chart\n\n::: {.cell}\n\n:::\n\n#### Scatterplot\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::",
     "supporting": [
       "index_files"
     ],
