@@ -18,7 +18,8 @@ format:
   html:
     theme: sandstone
     css: styles.css
-    toc: true
+    toc: false
+    page-layout: full
 
 editor: visual
 
