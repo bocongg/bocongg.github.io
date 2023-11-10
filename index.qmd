@@ -1,5 +1,7 @@
 ---
 title: "Data story project"
+filters:
+  - shinylive
 ---
 
 ### What contributes to the difference in wait times for admission to wards in local public hospitals?
@@ -7,6 +9,7 @@ title: "Data story project"
 The CNA had reported in April 2023 that the median waiting time for ward admissions had increased from about 5 hours to 7.2 hours during that period^[1](https://www.channelnewsasia.com/singapore/moh-hospital-waiting-times-7-hours-covid-19-3442136)^. The health ministry had explained that it was due to the rise in number of older patients with more complex medical needs requiring longer hospitalisation^[1](https://www.channelnewsasia.com/singapore/moh-hospital-waiting-times-7-hours-covid-19-3442136)^. Due to the ageing population in Singapore, long waiting time for admission to wards has been a long-standing issue over the years, and it was further exacerbated by the Covid-19 pandemic^[2](https://www.channelnewsasia.com/singapore/hospitals-beds-waiting-time-50-hours-admission-ng-teng-fong-sengkang-3014596),[3](https://www.straitstimes.com/singapore/health/most-public-hospitals-saw-more-ae-patients-in-past-week-compared-with-past-month)^.
 
 ```{r, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+<<<<<<< HEAD
 library(tidyr)
 library(readr)
 library(leaflet)
@@ -19,6 +22,185 @@ library(leaflet)
 
 #### Bar chart
 ```{r, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+=======
+library(tidyverse)
+library(ggplot2)
+library(tidyr)
+library(readr)
+library(lubridate)
+library(plyr)
+library(scales)
+library(zoo)
+library(leaflet)
+library(htmltools)
+library(plotly)
+library(ggh4x)
+library(ggrepel)
+
+
+wait_times <- read_csv("./Proj dataset/test_waiting_time.csv")
+
+bed_occ <- read_csv("./Proj dataset/test_BOR.csv")
+
+EMD_attendance <- read_csv("./Proj dataset/test_EMD_attendance.csv")
+
+
+tidy_wait_times <- wait_times %>%
+                    separate(col = Date, into = c("Day_wk", "Date"), sep = ", ") %>%
+                    mutate(new_Date_format = 
+                             parse_date_time(Date, orders = c("mdy", "dmy", "ymd"))) %>%
+                    mutate(Dates = format(new_Date_format, "%d/%m/%Y")) %>%
+                    separate(col = Date, into = c("Day", "Month", "Year"), sep = "/") %>%
+                    gather(key = hospital, value = wait_duration, 5:12 ) %>%
+                    select(Day_wk, Dates, Day, Month, Year, hospital, wait_duration)
+
+tidy_bed_occ <- bed_occ %>%
+                  filter(Years == 2023) %>%
+                  mutate(new_Date_format = 
+                           parse_date_time(Date, orders = c("mdy", "dmy", "ymd"))) %>%
+                  mutate(Dates = format(new_Date_format, "%d/%m/%Y")) %>%
+                  gather(key = hospital, value = occ_rate, 3:10) %>%
+                  separate(col = occ_rate, into = c("occ_rate"), sep = "%") %>%
+                  mutate(occ_rate_num = as.numeric(occ_rate)) %>%
+                  select(occ_rate_num)
+
+tidy_EMD_attendance <- EMD_attendance %>%
+                        separate(col = Date, into = c("Day_wk", "Date"), sep = ", ") %>%
+                        mutate(new_Date_format = 
+                                parse_date_time(Date, orders = c("mdy", "dmy", "ymd"))) %>%
+                        mutate(Dates = format(new_Date_format, "%d/%m/%Y")) %>%
+                        separate(col = Date, into = c("Day", "Month", "Year"), sep = "/") %>%
+                        gather(key = hospital, value = attendance, 5:12) %>%
+                        select(attendance)
+
+final_dataset <- cbind(tidy_wait_times,tidy_bed_occ,tidy_EMD_attendance)
+
+final_dataset <- 
+  final_dataset %>%
+    mutate(new_Date_format = 
+           parse_date_time(Dates, orders = c("mdy", "dmy", "ymd"))) %>%
+    mutate(week_num = as.numeric(format(new_Date_format, "%U"))) %>%
+    mutate(fullmonth = format(new_Date_format, "%b")) %>%
+    mutate(yearmonth = as.yearmon(new_Date_format)) %>%
+    mutate(yearmonthf = factor(yearmonth)) %>%
+    ddply(.(yearmonthf), transform, monthweek=5-week_num+min(week_num)) %>%
+    select(-new_Date_format,-yearmonth,-yearmonthf)
+```
+
+#### Line chart
+```{r, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+WT_line <- final_dataset %>% 
+  filter(Month == "01") %>%
+    ggplot(aes(x = Dates,
+           text = paste(wait_duration, "hrs"))) + 
+    geom_point(aes(y = wait_duration), size = 0.75) + 
+    geom_line(aes(y = wait_duration, group = hospital, color = hospital)) +
+    labs(title = "Waiting Time for Admission to Ward",
+         subtitle = "January 2023",
+         x = "Date",
+         y = "Hours (h)",
+         colour = "Hospital",
+         caption = "Source: Ministry of Health") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+BOR_line <- final_dataset %>% 
+  filter(Month == "01") %>%
+    ggplot(aes(x = Dates,
+           text = paste(occ_rate_num, "%"))) + 
+    geom_point(aes(y = occ_rate_num), size = 0.75) + 
+    geom_line(aes(y = occ_rate_num, group = hospital, color = hospital)) +
+    labs(title = "Bed Occupancy Rate (%)",
+         subtitle = "January 2023",
+         x = "Date",
+         y = "BOR (%)",
+         colour = "Hospital",
+         caption = "Source: Ministry of Health") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+EMD_line <- final_dataset %>% 
+  filter(Month == "01") %>%
+    ggplot(aes(x = Dates,
+           text = paste(wait_duration, "patients"))) + 
+    geom_point(aes(y = attendance), size = 0.75) + 
+    geom_line(aes(y = attendance, group = hospital, color = hospital)) +
+    labs(title = "Attendance at Emergency Medicine Department",
+         subtitle = "January 2023",
+         x = "Date",
+         y = "No. of patients",
+         colour = "Hospital",
+         caption = "Source: Ministry of Health") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplotly(WT_line, tooltip = "text") %>%
+  config(displayModeBar = FALSE) %>%
+  layout(dragmode = FALSE,
+         title = list(text = paste0('Waiting Time for Admission to Ward',
+                                    '<br>',
+                                    '<sup>',
+                                    'January 2023',
+                                    '</sup>')))
+
+ggplotly(BOR_line, tooltip = "text") %>%
+  config(displayModeBar = FALSE) %>%
+  layout(dragmode = FALSE,
+         title = list(text = paste0('Bed Occupancy Rate (%)',
+                                    '<br>',
+                                    '<sup>',
+                                    'January 2023',
+                                    '</sup>')))
+
+ggplotly(EMD_line, tooltip = "text") %>%
+  config(displayModeBar = FALSE) %>%
+  layout(dragmode = FALSE,
+         title = list(text = paste0('Attendance at Emergency Medicine Department',
+                                    '<br>',
+                                    '<sup>',
+                                    'January 2023',
+                                    '</sup>')))
+```
+
+#### Boxplot
+```{r, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+final_dataset %>% 
+  filter(Month == "01") %>%
+    ggplot(aes(x = wait_duration,
+               y = fct_reorder(hospital, desc(hospital)))) + 
+    geom_boxplot(aes(fill = hospital)) + 
+    labs(title = "Waiting Time for Admission to Ward",
+         subtitle = "January, 2023",
+         x = "Hours (h)",
+         y = "Hospital",
+         caption = "Source: Ministry of Health") +
+    theme(legend.position = "none")
+
+final_dataset %>% 
+  filter(Month == "01") %>%
+    ggplot(aes(x = occ_rate_num,
+               y = fct_reorder(hospital, desc(hospital)))) + 
+    geom_boxplot(aes(fill = hospital)) + 
+    labs(title = "Bed Occupancy Rate (%)",
+         subtitle = "January, 2023",
+         x = "BOR (%)",
+         y = "Hospital",
+         caption = "Source: Ministry of Health") +
+    theme(legend.position = "none")
+
+final_dataset %>% 
+  filter(Month == "01") %>%
+    ggplot(aes(x = attendance,
+               y = fct_reorder(hospital, desc(hospital)))) + 
+    geom_boxplot(aes(fill = hospital)) + 
+    labs(title = "Attendance at Emergency Medicine Department",
+         subtitle = "January, 2023",
+         x = "No. of patients",
+         y = "Hospital",
+         caption = "Source: Ministry of Health") +
+    theme(legend.position = "none")
+```
+
+#### Bar chart
+```{r, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+>>>>>>> 2d19b8c6fdab110843018c99077710ab68b2bb2f
 final_dataset %>% 
   filter(Month == "01",
          Day == "01") %>%
@@ -51,7 +233,11 @@ final_dataset %>%
 ```
 
 #### Calendar Heatmap
+<<<<<<< HEAD
 ```{r, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+=======
+```{r, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+>>>>>>> 2d19b8c6fdab110843018c99077710ab68b2bb2f
 calendar_plot <- final_dataset %>%  
   filter(hospital == "AH") %>%
     ggplot(aes(x = fct_inorder(Day_wk),
@@ -83,7 +269,11 @@ ggplotly(calendar_plot, tooltip = "text") %>%
 ```
 
 #### Line + bar chart
+<<<<<<< HEAD
 ```{r, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+=======
+```{r, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+>>>>>>> 2d19b8c6fdab110843018c99077710ab68b2bb2f
 final_dataset %>% 
   filter(Month == "01",
          hospital == "AH") %>%
@@ -117,7 +307,11 @@ final_dataset %>%
     scale_x_discrete(guide = guide_axis(angle = 45))
 ```
 #### Scatterplot
+<<<<<<< HEAD
 ```{r, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+=======
+```{r, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+>>>>>>> 2d19b8c6fdab110843018c99077710ab68b2bb2f
 final_dataset %>%
   filter(Month == "01",
          hospital == "AH") %>%
