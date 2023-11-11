@@ -5,7 +5,7 @@ account: bocongg
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10427364
-bundleId: 7911743
+bundleId: 7914012
 url: https://bocongg.shinyapps.io/proj_app/
 version: 1
 asMultiple: FALSE

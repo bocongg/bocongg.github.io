@@ -64,8 +64,8 @@ final_dataset <-
 ###############################################################################
 
 ### Define shiny modular functions
-sliderInputdate <- function(id, setvalue){
-  sliderInput(id, label = NULL, min = 1, max = 31, value = setvalue)
+sliderInputdate <- function(id, setvalue, setlabel){
+  sliderInput(id, label = setlabel, min = 1, max = 31, value = setvalue)
 }
 
 selectInputdate <- function(id, setlabel, choices = list(
@@ -143,8 +143,8 @@ plotlinedata <- function(mydata, x, startmthInput, startdateId, endmthInput, end
   )
   ylabel <- switch(
     x,
-    "Waiting Time" = "Hours (h)",
-    "Bed Occupancy Rate" = "BOR (%)",
+    "Waiting Time" = "Waiting Time (h)",
+    "Bed Occupancy Rate" = "Bed Occupancy Rate (%)",
     "EMD Attendance" = "No. of patients"
   )
   
@@ -156,10 +156,10 @@ plotlinedata <- function(mydata, x, startmthInput, startdateId, endmthInput, end
              hospital %in% c(SH, NUHS, NHG)) %>%
     ggplot(aes(x = Dates,
                y = switch(x,"Waiting Time" = wait_duration,"Bed Occupancy Rate" = occ_rate_num,"EMD Attendance" = attendance),
-               text = paste(switch(x,"Waiting Time" = wait_duration,"Bed Occupancy Rate" = occ_rate_num,"EMD Attendance" = attendance),
-                            labelunit))) + 
-    geom_point(size = 0.75) + 
+               text = paste(hospital, ": ", switch(x,"Waiting Time" = wait_duration,"Bed Occupancy Rate" = occ_rate_num,"EMD Attendance" = attendance),
+                            labelunit, sep = ""))) + 
     geom_line(aes(group = hospital, color = hospital)) +
+    geom_point(size = 0.75) + 
     labs(x = "Date",
          y = ylabel,
          colour = "Hospital") +
@@ -175,8 +175,8 @@ plotboxdata <- function(mydata, x, startmthInput, startdateId, endmthInput, endd
   
   ylabel <- switch(
     x,
-    "Waiting Time" = "Hours (h)",
-    "Bed Occupancy Rate" = "BOR (%)",
+    "Waiting Time" = "Waiting Time (h)",
+    "Bed Occupancy Rate" = "Bed Occupancy Rate (%)",
     "EMD Attendance" = "No. of patients"
   )
   
@@ -232,7 +232,7 @@ nav_panelplota <- function(datagrp, tabicon){
 plotcaldata <- function(mydata, x, choosehosp){
   labelunit <- switch(
     x,
-    "Waiting Time" = " hrs",
+    "Waiting Time" = " h",
     "Bed Occupancy Rate" = "%",
     "EMD Attendance" = " patients"
   )
@@ -291,7 +291,7 @@ ui <- page_navbar(
   selected = "Multi-hospital analysis",
   collapsible = TRUE,
 
-  ##################################### Tab 1 ###################################,
+##################################### Tab 1 ###################################
   nav_panel(
     title = "Multi-hospital analysis",
     icon = icon("map"),
@@ -305,9 +305,9 @@ ui <- page_navbar(
         card_header("Settings:"),
         card_body(
           selectInputdate("startmthInput", setlabel = "Start Date"),
-          sliderInputdate("startdateId", 1),
+          sliderInputdate("startdateId", 1, setlabel = NULL),
           selectInputdate("endmthInput", setlabel = "End Date"),
-          sliderInputdate("enddateId", 31),
+          sliderInputdate("enddateId", 31, setlabel = NULL),
           checkboxGroupInputhosp("SH"),
           checkboxGroupInputhosp("NUHS"),
           checkboxGroupInputhosp("NHG")
@@ -327,7 +327,7 @@ ui <- page_navbar(
     )
   ),
   
-################################### Tab 2 ####################################
+##################################### Tab 2 ####################################
   nav_panel(
     title = "Single-hospital analysis",
     icon = icon("hospital"),
@@ -340,15 +340,13 @@ ui <- page_navbar(
         area = "settings",
         card_header("Settings:"),
         card_body(
-          selectInputdate("startmthInput", setlabel = "Start Date"),
-          sliderInputdate("startdateId", 1),
-          selectInputdate("endmthInput", setlabel = "End Date"),
-          sliderInputdate("enddateId", 31),
+          selectInputdate("startmthInput2", setlabel = "Select Month"),
+          sliderInputdate("startdateId2", 1, setlabel = "Start Date"),
+          sliderInputdate("enddateId2", 31, setlabel = "End Date"),
           radioButtons("choosehosp", label = "Choose hospital",
                        choices = list("CGH" = "CGH", "SGH" = "SGH", "SKH" = "SKH",
                                       "AH" = "AH", "NTFGH" = "NTFGH", "NUH" = "NUH(A)",
-                                      "KTPH" = "KTPH", "TTSH" = "TTSH")
-                       )
+                                      "KTPH" = "KTPH", "TTSH" = "TTSH"))
         )
       ),
 
@@ -401,7 +399,7 @@ ui <- page_navbar(
   )
 )
 
-### Main server
+############################### Main server ###################################
 server <- function(input, output) {
   
   output$WTlinechart <- renderPlotly({
@@ -425,7 +423,6 @@ server <- function(input, output) {
     plotboxdata(final_dataset, x = "EMD Attendance", input$startmthInput, input$startdateId, input$endmthInput, input$enddateId, input$SH, input$NUHS, input$NHG)
   })
   
-
   output$WTcalendar <- renderPlotly({
     plotcaldata(final_dataset, x = "Waiting Time", input$choosehosp)
   })
@@ -437,27 +434,144 @@ server <- function(input, output) {
   })
   
   output$linebarchart1 <- renderPlotly({
-    linebar1 <- final_dataset %>% 
-      filter(Month >= input$startmthInput &
-             Day >= input$startdateId &
-             Month <= input$endmthInput &
-             Day <= input$enddateId &
+    final_dataset %>% 
+      filter(Month >= input$startmthInput2 &
+             Day >= input$startdateId2 &
+             Month <= input$startmthInput2 &
+             Day <= input$enddateId2 &
              hospital == input$choosehosp) %>%
-      ggplot(aes(x = Dates)) + 
-      geom_col(aes(y = occ_rate_num/10), fill = "lightgrey") +
-      geom_point(aes(y = wait_duration), size = 2) + 
-      geom_line(aes(y = wait_duration, group = hospital, color = hospital), size = 0.75) + 
-      labs(x = "Date",
-           y = "Hours (h)") +
-      theme(legend.position = "none") +
-      scale_y_continuous(sec.axis = sec_axis(~.*10, name = "BOR (%)")) +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))
-    
-    ggplotly(linebar1, tooltip = "text") %>%
-      config(displayModeBar = FALSE) %>%
-      layout(dragmode = FALSE)
+      plot_ly(x = ~Dates, y = ~occ_rate_num, type = 'bar', name = "BOR (%)",
+              marker = list(color = 'lightblue')) %>% 
+      add_trace(x = ~Dates, y = ~wait_duration, type = 'scatter', name = "WT (h)", mode = 'lines+markers', yaxis = 'y2',
+                marker = list(color = 'black')) %>%
+      layout(title = switch(input$choosehosp,
+                            "CGH" = "Changi General Hospital",
+                            "SGH" = "Singapore General Hospital",
+                            "SKH" = "Sengkang General Hospital",
+                            "AH" = "Alexandra Hospital",
+                            "NTFGH" = "Ng Teng Fong General Hospital",
+                            "NUH(A)" = "National University Hospital",
+                            "KTPH" = "Khoo Teck Puat Hospital",
+                            "TTSH" = "Tan Tock Seng Hospital"),
+             xaxis = list(title = "Dates", tickangle = -45),
+             yaxis = list(title = "Bed Occupancy Rate", ticksuffix = "%",  range = c(0, 100),
+                          color='dodgerblue'),
+             yaxis2 = list(overlaying = "y", side = "right", title = "Waiting Time (h)",
+                           color='black', rangemode = 'tozero'),
+             dragmode = FALSE,
+             hovermode = "x unified") %>%
+      config(displayModeBar = FALSE)
   })
   
+  output$scatterplot1 <- renderPlotly({
+    scatterdata <- final_dataset %>%
+      filter(Month >= input$startmthInput2 &
+               Day >= input$startdateId2 &
+               Month <= input$startmthInput2 &
+               Day <= input$enddateId2 &
+               hospital == input$choosehosp)
+    
+    calregression <- scatterdata %>% lm(wait_duration ~ occ_rate_num,.) %>% fitted.values()
+    
+    cor_coeff <- cor(scatterdata$occ_rate_num, scatterdata$wait_duration)
+    
+    scatterdata %>%
+      plot_ly(x = ~occ_rate_num, y = ~wait_duration, mode = "markers", 
+              text = ~Dates) %>%
+      add_markers(y = ~wait_duration,
+                  hovertemplate = paste('<b>Date: %{text}</b>',
+                                        '<br>BOR: %{x}</br>',
+                                        'WT: %{y:.2f}h',
+                                        '<extra></extra>')) %>%
+      add_trace(x = ~occ_rate_num, y = calregression, mode = "lines", hoverinfo = "none") %>%
+      layout(title = switch(input$choosehosp,
+                            "CGH" = "Changi General Hospital",
+                            "SGH" = "Singapore General Hospital",
+                            "SKH" = "Sengkang General Hospital",
+                            "AH" = "Alexandra Hospital",
+                            "NTFGH" = "Ng Teng Fong General Hospital",
+                            "NUH(A)" = "National University Hospital",
+                            "KTPH" = "Khoo Teck Puat Hospital",
+                            "TTSH" = "Tan Tock Seng Hospital"),
+             xaxis = list(title = "Bed Occupancy Rate", ticksuffix = "%"),
+             yaxis = list(title = "Waiting Time (h)"),
+             dragmode = FALSE, showlegend = FALSE,
+             annotations = list(x = min(scatterdata$occ_rate_num),
+                                y = max(scatterdata$wait_duration),
+                                text = paste("<b>R =", round(cor_coeff, 3), "</b>"),
+                                showarrow = FALSE)) %>%
+      config(displayModeBar = FALSE)
+  })
+  
+  output$linebarchart2 <- renderPlotly({
+    final_dataset %>% 
+      filter(Month >= input$startmthInput2 &
+               Day >= input$startdateId2 &
+               Month <= input$startmthInput2 &
+               Day <= input$enddateId2 &
+               hospital == input$choosehosp) %>%
+      plot_ly(x = ~Dates, y = ~attendance, type = 'bar', name = "No. of patients",
+              marker = list(color = 'burlywood')) %>% 
+      add_trace(x = ~Dates, y = ~wait_duration, type = 'scatter', name = "WT (h)", mode = 'lines+markers', yaxis = 'y2',
+                marker = list(color = 'black')) %>%
+      layout(title = switch(input$choosehosp,
+                            "CGH" = "Changi General Hospital",
+                            "SGH" = "Singapore General Hospital",
+                            "SKH" = "Sengkang General Hospital",
+                            "AH" = "Alexandra Hospital",
+                            "NTFGH" = "Ng Teng Fong General Hospital",
+                            "NUH(A)" = "National University Hospital",
+                            "KTPH" = "Khoo Teck Puat Hospital",
+                            "TTSH" = "Tan Tock Seng Hospital"),
+             xaxis = list(title = "Dates", tickangle = -45),
+             yaxis = list(title = "No. of patients", rangemode = 'tozero',
+                          color='brown'),
+             yaxis2 = list(overlaying = "y", side = "right", title = "Waiting Time (h)",
+                           color='black', rangemode = 'tozero'),
+             dragmode = FALSE,
+             hovermode = "x unified") %>%
+      config(displayModeBar = FALSE)
+  })
+  
+  output$scatterplot2 <- renderPlotly({
+    scatterdata <- final_dataset %>%
+      filter(Month >= input$startmthInput2 &
+               Day >= input$startdateId2 &
+               Month <= input$startmthInput2 &
+               Day <= input$enddateId2 &
+               hospital == input$choosehosp)
+    
+    calregression <- scatterdata %>% lm(wait_duration ~ attendance,.) %>% fitted.values()
+    
+    cor_coeff <- cor(scatterdata$attendance, scatterdata$wait_duration)
+    
+    scatterdata %>%
+      plot_ly(x = ~attendance, y = ~wait_duration, mode = "markers", 
+              text = ~Dates) %>%
+      add_markers(y = ~wait_duration,
+                  hovertemplate = paste('<b>Date: %{text}</b>',
+                                        '<br>No. of patients: %{x}</br>',
+                                        'WT: %{y:.2f}h',
+                                        '<extra></extra>')) %>%
+      add_trace(x = ~attendance, y = calregression, mode = "lines", hoverinfo = "none") %>%
+      layout(title = switch(input$choosehosp,
+                            "CGH" = "Changi General Hospital",
+                            "SGH" = "Singapore General Hospital",
+                            "SKH" = "Sengkang General Hospital",
+                            "AH" = "Alexandra Hospital",
+                            "NTFGH" = "Ng Teng Fong General Hospital",
+                            "NUH(A)" = "National University Hospital",
+                            "KTPH" = "Khoo Teck Puat Hospital",
+                            "TTSH" = "Tan Tock Seng Hospital"),
+             xaxis = list(title = "No. of patients"),
+             yaxis = list(title = "Waiting Time (h)"),
+             dragmode = FALSE, showlegend = FALSE,
+             annotations = list(x = min(scatterdata$attendance),
+                                y = max(scatterdata$wait_duration),
+                                text = paste("<b>R =", round(cor_coeff, 3), "</b>"),
+                                showarrow = FALSE)) %>%
+      config(displayModeBar = FALSE)
+  })
 }
 
 shinyApp(ui, server)

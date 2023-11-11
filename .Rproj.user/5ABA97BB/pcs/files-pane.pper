@@ -1,13 +1,9 @@
 {
-<<<<<<< HEAD
-    "path": "C:/Users/bcong/Desktop/Uni Materials/NM2207 Computational Media Literacy/bocongg.github.io",
-=======
-    "path": "C:/Users/bcong/Desktop/Uni Materials/NM2207 Computational Media Literacy/Week 12",
->>>>>>> cf7d5ff0627ce1d41b23cea3d5d46429698e6acf
     "sortOrder": [
         {
             "columnIndex": 2,
             "ascending": true
         }
-    ]
+    ],
+    "path": "~/GitHub/bocongg.github.io/proj_app"
 }
