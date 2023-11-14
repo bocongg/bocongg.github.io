@@ -90,7 +90,7 @@ checkboxGroupInputhosp <- function(id, choices, selected = c("CGH", "SGH", "SKH"
   )
   hosplabel <- switch(
     id,
-    "SH" = "Singhealth:",
+    "SH" = "Singapore Health Services:",
     "NUHS" = "National University Health System:",
     "NHG" = "National Healthcare Group:"
   )
@@ -117,7 +117,7 @@ nav_panelplot <- function(datagrp, tabicon){
       layout = c("linechart","boxplot"),
       gap_size = "0px",
       col_sizes = c("1fr"),
-      row_sizes = c("1fr","1fr"),
+      row_sizes = c("500px","500px"),
       grid_card(
         area = "linechart",
         full_screen = TRUE,
@@ -139,7 +139,7 @@ plotlinedata <- function(mydata, x, startmthInput, startdateId, endmthInput, end
     x,
     "Waiting Time" = "hrs",
     "Bed Occupancy Rate" = "%",
-    "EMD Attendance" = "patients"
+    "EMD Attendance" = " patients"
   )
   ylabel <- switch(
     x,
@@ -290,7 +290,8 @@ ui <- page_navbar(
   title = "Data Dashboard",
   selected = "Multi-hospital analysis",
   collapsible = TRUE,
-
+  fillable = TRUE,
+  
 ##################################### Tab 1 ###################################
   nav_panel(
     title = "Multi-hospital analysis",
@@ -308,9 +309,20 @@ ui <- page_navbar(
           sliderInputdate("startdateId", 1, setlabel = NULL),
           selectInputdate("endmthInput", setlabel = "End Date"),
           sliderInputdate("enddateId", 31, setlabel = NULL),
-          checkboxGroupInputhosp("SH"),
-          checkboxGroupInputhosp("NUHS"),
-          checkboxGroupInputhosp("NHG")
+          tags$div(title="CGH: Changi General Hospital,
+SGH: Singapore General Hospital,
+SKH: Sengkang General Hospital",
+            checkboxGroupInputhosp("SH")
+          ),
+          tags$div(title="AH: Alexandra Hospital,
+NTFGH: Ng Teng Fong General Hospital,
+NUH: National University Hospital",
+            checkboxGroupInputhosp("NUHS")
+          ),
+          tags$div(title="KTPH: Khoo Teck Puat Hospital,
+TTSH: Tan Tock Seng Hospital",
+            checkboxGroupInputhosp("NHG")
+          ),
         )
       ),
 
@@ -322,7 +334,8 @@ ui <- page_navbar(
             nav_panelplot("Bed Occupancy Rate", "bed"),
             nav_panelplot("EMD Attendance", "person")
           )
-        )
+        ),
+        card_footer("All data sources from the Ministry of Health", class = "bg-dark")
       )
     )
   ),
@@ -343,10 +356,19 @@ ui <- page_navbar(
           selectInputdate("startmthInput2", setlabel = "Select Month"),
           sliderInputdate("startdateId2", 1, setlabel = "Start Date"),
           sliderInputdate("enddateId2", 31, setlabel = "End Date"),
+          tags$div(title="CGH: Changi General Hospital,
+SGH: Singapore General Hospital,
+SKH: Sengkang General Hospital,
+AH: Alexandra Hospital,
+NTFGH: Ng Teng Fong General Hospital,
+NUH: National University Hospital,
+KTPH: Khoo Teck Puat Hospital,
+TTSH: Tan Tock Seng Hospital",
           radioButtons("choosehosp", label = "Choose hospital",
                        choices = list("CGH" = "CGH", "SGH" = "SGH", "SKH" = "SKH",
                                       "AH" = "AH", "NTFGH" = "NTFGH", "NUH" = "NUH(A)",
                                       "KTPH" = "KTPH", "TTSH" = "TTSH"))
+          )
         )
       ),
 
@@ -364,7 +386,7 @@ ui <- page_navbar(
                        "scatterplot1",
                        "linebarchart2",
                        "scatterplot2"),
-            gap_size = "0px",
+            gap_size = "10px",
             col_sizes = c("1fr"),
             row_sizes = c("50px","500px", "500px", "500px", "500px"),
             grid_card_text(
@@ -375,25 +397,44 @@ ui <- page_navbar(
             grid_card(
               area = "linebarchart1",
               full_screen = TRUE,
+              card_header("Dual chart showing Bed Occupancy Rate (bars) and Waiting Time (line)",
+                          class = "bg-info"),
               card_body(plotlyOutput(outputId = "linebarchart1"))
             ),
             grid_card(
               area = "scatterplot1",
+              card_header("Scatterplot of Bed Occupancy Rate (independent) and Waiting Time (dependent)",
+                          tooltip(
+                            bs_icon("info-circle"),
+                            "Linear regression line plotted without removal of outliers.
+                            Correlation coefficient (R) calculated and shown in the top left corner of plot."
+                          ),
+                          class = "bg-info"),
               full_screen = TRUE,
               card_body(plotlyOutput(outputId = "scatterplot1"))
             ),
             grid_card(
               area = "linebarchart2",
+              card_header("Dual chart showing EMD Attendance (bars) and Waiting Time (line)",
+                          class = "bg-warning"),
               full_screen = TRUE,
               card_body(plotlyOutput(outputId = "linebarchart2"))
             ),
             grid_card(
               area = "scatterplot2",
+              card_header("Scatterplot of EMD Attendance (independent) and Waiting Time (dependent)",
+                          tooltip(
+                            bs_icon("info-circle"),
+                            "Linear regression line plotted without removal of outliers.
+                            Correlation coefficient (R) calculated and shown in the top left corner of plot."
+                          ),
+                          class = "bg-warning"),
               full_screen = TRUE,
               card_body(plotlyOutput(outputId = "scatterplot2"))
             )
           )
-        )
+        ),
+        card_footer("All data sources from the Ministry of Health", class = "bg-dark")
       )
     )
   )
@@ -401,7 +442,7 @@ ui <- page_navbar(
 
 ############################### Main server ###################################
 server <- function(input, output) {
-  
+
   output$WTlinechart <- renderPlotly({
     plotlinedata(final_dataset, x = "Waiting Time", input$startmthInput, input$startdateId, input$endmthInput, input$enddateId, input$SH, input$NUHS, input$NHG)
   })

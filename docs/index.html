@@ -48,6 +48,24 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+<script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="site_libs/leaflet-binding-2.2.0.9000/leaflet.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="site_libs/datatables-binding-0.30/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -61,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">NM2207</span>
+    <span class="navbar-title">NM2207 - Data story project</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -90,31 +108,153 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content page-columns page-full column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Data story project</h1>
+
+
+<div class="column-screen">
+<div class="hero-image">
+<div class="hero-text">
+<p>“It’s better to die than to fall ill.”<br>
+– common saying in Singapore</p>
 </div>
+</div>
+</div>
+<section id="reasons" class="level1" style="text-align: center">
+<h1 style="text-align: center"><strong>Reasons</strong></h1>
+<p>1) High medical costs</p>
+<p>2) Long waiting times for inpatient beds<br>
+.<br>
+.<br>
+.<br>
+among other concerns</p>
+</section>
+<section id="but-why-isnt-singapores-healthcare-highly-ranked-globally" class="level1">
+<h1>But why? Isn’t Singapore’s healthcare highly ranked globally?</h1>
+<div class="flex-container">
+<div class="card border-primary mb-3" style="width: 25%; margin: 5px">
+<div class="card-header border-primary text-white bg-secondary">
+<p>Quality – #13</p>
+</div>
+<div class="card-body">
+<p>Disease Prevention: #27<br>
+</p>
+<p>Pandemic Preparedness: #3<br>
+</p>
+<p>Patient-centered Care: #5<br>
+</p>
+<p>Infrastructure: #27</p>
+</div>
+</div>
+<div class="card border-success mb-3" style="width: 25%; margin: 5px">
+<div class="card-header border-primary text-white bg-success">
+<p>Choice – #12</p>
+</div>
+<div class="card-body">
+<p>Affordability of Health Coverage: #3<br>
+</p>
+<p>Freedom to Choose Healthcare Services: #14<br>
+</p>
+<p>Access to New Treatments: #30</p>
+</div>
+</div>
+<div class="card border-warning mb-3" style="width: 25%; margin: 5px">
+<div class="card-header border-primary text-white bg-warning">
+<p>Science &amp; Tech – #15</p>
+</div>
+<div class="card-body">
+<p>Medical Advances: #22<br>
+</p>
+<p>Scientific Discoveries: #10<br>
+</p>
+<p>Health Digitization: #16</p>
+</div>
+</div>
+<div class="card border-info mb-3" style="width: 25%; margin: 5px">
+<div class="card-header border-primary text-white bg-info">
+<p>Fiscal Sustainability – #16</p>
+</div>
+<div class="card-body">
+<p>National Solvency: #28<br>
+</p>
+<p>Public Healthcare Spending: #5<br>
+</p>
+<p>Growth in Public Healthcare Spending: #28</p>
+</div>
+</div>
+</div>
+<div class="card border-dark mb-3" style="background-color: gold; padding: 10px 0; text-align: center; font-size: 3em">
+<p>Overall – Ranking at #10</p>
+</div>
+</section>
+<section id="shortcomings" class="level1">
+<h1>Shortcomings</h1>
+<p>Although Singapore’s healthcare system performed well as compared to other countries, no system is perfect. Singapore faces a unique set of challenges that arises from a rapidly ageing population:<br>
+</p>
+<ul>
+<li><p>more people stopping income flow due to retirement and hence stagnant Medisave contributions.<br>
+</p></li>
+<li><p>higher prevalence of non-communicable diseases (NCDs, i.e.&nbsp;diabetes, cardiovascular diseases, cancer, etc.) because increasing age is a risk factor.<br>
+</p></li>
+<li><p>longer treatment duration and medical expenditure because NCDs cannot be treated overnight and sometimes are life-long diseases.<br>
+</p></li>
+<li><p>increasing medical spending due to inflation and thus having to work past retirement age should there be unsatisfactory financial planning.</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>“… we have many more patients with more complex medical needs, often older, who needed longer hospital stays”, the ministry said in response to a CNA query. “This contributed to higher bed utilisation, which slowed the flow of patients from emergency departments to hospital wards.”<br>
+- CNA report 25 Apr 2023</p>
+</blockquote>
+</section>
+<section id="in-other-words-high-bed-utilisation-increased-the-waiting-time-for-patients-to-be-admitted-to-a-hospital-ward.-is-this-true-what-does-the-data-tell-us-lets-find-out." class="level1">
+<h1>In other words, high bed utilisation increased the waiting time for patients to be admitted to a hospital ward. Is this true? What does the data tell us? Let’s find out.</h1>
+<section id="an-introduction" class="level2">
+<h2 class="anchored" data-anchor-id="an-introduction">An introduction</h2>
+<p>Singapore’s healthcare system is generally divided into 2 sectors – public and private. The public hospitals make up the biggest proportion, with 8 restructured hospitals in Singapore. They operate under 3 major healthcare clusters that serve different regions of Singapore – Singapore Health Services (SingHealth) in the East, National University Health System (NUHS) in the West, and National Healthcare Group (NHG) in the Central.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8a6d1b79ab2e7f8260ff" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-8a6d1b79ab2e7f8260ff">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[1.27978933069376,103.8359703628441,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Singapore General Hospital (SingHealth)",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[1.340261036764153,103.9495770643676,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Changi General Hospital (SingHealth)",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[1.394345123612494,103.8930852636921,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Sengkang General Hospital (SingHealth)",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[1.333734768241636,103.7453925430454,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Ng Teng Fong General Hospital (NUHS)",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[1.293866528778529,103.7831305271843,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"National University Hospital (NUHS)",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[1.286594382159791,103.8012748996528,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Alexandra Hospital (NUHS)",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[1.32139022738893,103.8458316164007,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Tan Tock Seng Hospital (NHG)",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addMarkers","args":[1.424113233868404,103.8393848198949,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Khoo Teck Puat Hospital (NHG)",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[1.27978933069376,1.424113233868404],"lng":[103.7453925430454,103.9495770643676]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">The data</h2>
+<p>Three datasets were obtained from the Ministry of Health – the waiting time for admission to wards, the bed occupancy rate, and the number of attendances at the Emergency Medicine Department (EMD), and data between January to September in the year 2023 will be analysed. Explore the data using the interactive Shiny app below.</p>
+<iframe height="700px" width="100%" frameborder="no" src="https://bocongg.shinyapps.io/proj_app/"> </iframe>
+</section>
+<section id="analysis-summary" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-summary">Analysis summary</h2>
+<p>While the interactive Shiny app above provides a wealth of data for analysis, we zoom in to the scatterplots to investigate the presence of correlation between bed occupancy rates and waiting times.</p>
+<p>The tables below show the correlation coefficients (R) when the independent variables (Bed Occupancy Rate or EMD Attendance) are plotted against the dependent variable (Waiting Time).</p>
+<p>Based on the data, the following inferences can be made:</p>
+<ul>
+<li><p>the correlation coefficients generally vary in each hospital for each month.</p></li>
+<li><p>across the months, some hospitals experience greater fluctuations in variation of R (i.e.&nbsp;SKH had a 0.695 difference between the highest and lowest R) while others experience smaller fluctuations (i.e.&nbsp;NUH with only a difference of 0.154).</p></li>
+<li><p>In SGH, the maximum and minimum R values are 0.8 and 0.6 respectively, which are both the highest among all the hospitals. Therefore, it seems that bed occupancy rate is a good predictor of waiting time for admission to a ward in SGH.</p></li>
+</ul>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
 
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f55ca326e9bafb970a1d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f55ca326e9bafb970a1d">{"x":{"filter":"none","vertical":false,"caption":"<caption>Table 1: Correlation Coefficients for Bed Occupancy Rate and Waiting Time.<\/caption>","data":[["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"],[0.461,0.53,0.595,0.248,0.375,0.376,0.507,0.392,0.441],[0.647,0.093,0.402,0.239,0.357,0.552,0.345,0.314,0.411],[0.363,0.397,0.341,-0.111,-0.125,0.491,0.321,0.385,0.129],[0.424,0.296,0.549,-0.065,0.173,0.303,0.061,0.231,0.623],[0.681,0.6870000000000001,0.657,0.572,0.615,0.63,0.57,0.662,0.724],[0.667,0.664,0.7,0.662,0.749,0.784,0.846,0.6909999999999999,0.746],[0.5600000000000001,0.701,0.448,0.574,0.006,0.437,0.333,0.533,0.432],[0.644,0.478,0.431,0.462,0.591,0.522,0.337,0.43,0.543],[1,2,3,4,5,6,7,8,9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>AH<\/th>\n      <th>CGH<\/th>\n      <th>KTPH<\/th>\n      <th>NTFGH<\/th>\n      <th>NUH(A)<\/th>\n      <th>SGH<\/th>\n      <th>SKH<\/th>\n      <th>TTSH<\/th>\n      <th>ID<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b3f376a4c8950edea909" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b3f376a4c8950edea909">{"x":{"filter":"none","vertical":false,"caption":"<caption>Table 2: Correlation Coefficients for EMD Attendance and Waiting Time.<\/caption>","data":[["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"],[0.461,0.53,0.595,0.248,0.375,0.376,0.507,0.392,0.441],[0.647,0.093,0.402,0.239,0.357,0.552,0.345,0.314,0.411],[0.363,0.397,0.341,-0.111,-0.125,0.491,0.321,0.385,0.129],[0.424,0.296,0.549,-0.065,0.173,0.303,0.061,0.231,0.623],[0.681,0.6870000000000001,0.657,0.572,0.615,0.63,0.57,0.662,0.724],[0.667,0.664,0.7,0.662,0.749,0.784,0.846,0.6909999999999999,0.746],[0.5600000000000001,0.701,0.448,0.574,0.006,0.437,0.333,0.533,0.432],[0.644,0.478,0.431,0.462,0.591,0.522,0.337,0.43,0.543],[1,2,3,4,5,6,7,8,9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>AH<\/th>\n      <th>CGH<\/th>\n      <th>KTPH<\/th>\n      <th>NTFGH<\/th>\n      <th>NUH(A)<\/th>\n      <th>SGH<\/th>\n      <th>SKH<\/th>\n      <th>TTSH<\/th>\n      <th>ID<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 <section id="what-contributes-to-the-difference-in-wait-times-for-admission-to-wards-in-local-public-hospitals" class="level3">
 <h3 class="anchored" data-anchor-id="what-contributes-to-the-difference-in-wait-times-for-admission-to-wards-in-local-public-hospitals">What contributes to the difference in wait times for admission to wards in local public hospitals?</h3>
 <p>The CNA had reported in April 2023 that the median waiting time for ward admissions had increased from about 5 hours to 7.2 hours during that period<sup><a href="https://www.channelnewsasia.com/singapore/moh-hospital-waiting-times-7-hours-covid-19-3442136">1</a></sup>. The health ministry had explained that it was due to the rise in number of older patients with more complex medical needs requiring longer hospitalisation<sup><a href="https://www.channelnewsasia.com/singapore/moh-hospital-waiting-times-7-hours-covid-19-3442136">1</a></sup>. Due to the ageing population in Singapore, long waiting time for admission to wards has been a long-standing issue over the years, and it was further exacerbated by the Covid-19 pandemic<sup><a href="https://www.channelnewsasia.com/singapore/hospitals-beds-waiting-time-50-hours-admission-ng-teng-fong-sengkang-3014596">2</a>,<a href="https://www.straitstimes.com/singapore/health/most-public-hospitals-saw-more-ae-patients-in-past-week-compared-with-past-month">3</a></sup>.</p>
-<iframe height="700" width="100%" frameborder="no" src="https://bocongg.shinyapps.io/proj_app/"> </iframe>
 
 
+</section>
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -352,7 +492,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright © 2023 Lew Bo Cong
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ This site is built with <a href="https://quarto.org/">Quarto</a> and <a href="https://www.rstudio.com/"><img src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-flat.svg" class="img-fluid" alt="RStudio" width="60"></a>.
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

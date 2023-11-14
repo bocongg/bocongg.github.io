@@ -8,6 +8,9 @@ about:
     - icon: github
       text: Github (Click here for NM2207 folders)
       href: https://github.com/bocongg/my-NM2207-repo
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/lewbocong
     - icon: instagram
       text: mbe.z
       href: https://www.instagram.com/mbe.z/

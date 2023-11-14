@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Data story project",
+    "title": "Reasons",
     "section": "",
-    "text": "What contributes to the difference in wait times for admission to wards in local public hospitals?\nThe CNA had reported in April 2023 that the median waiting time for ward admissions had increased from about 5 hours to 7.2 hours during that period1. The health ministry had explained that it was due to the rise in number of older patients with more complex medical needs requiring longer hospitalisation1. Due to the ageing population in Singapore, long waiting time for admission to wards has been a long-standing issue over the years, and it was further exacerbated by the Covid-19 pandemic2,3.\n \n\n\n\n\n Back to top"
+    "text": "“It’s better to die than to fall ill.”\n– common saying in Singapore"
   },
   {
     "objectID": "about.html",
@@ -12,5 +12,47 @@
     "title": "LEW Bo Cong",
     "section": "",
     "text": "Hello! I am Bo Cong, currently a Year 3 student at NUS majoring in Life Sciences. While my passion for biological sciences has been with me since my secondary school days, I also consider myself to be a tech-savvy person and in recent times I have gained interest in web and app development. I first began exploring web development using C++ in 2018, inspired by an in-game friend who created a website for our favourite game, but it was unfruitful because I lacked guidance. Then in 2020, there was an opportunity for Full-time National Servicemen (NSF) to receive governmental funding support to attend short virtual Infocomm Technology courses, which I jumped in and learnt app development using React Native. However, I found the learning curve to be too steep. Now that I’m in university, I have had the chance to enroll in various courses (i.e. LSM2302 and currently NM2207) with more structured curriculum to improve my coding skills while deepening my passion for biomedical sciences. In the future, I hope to merge my knowledge in Life Sciences with web development to value-add to this field.\n\nEducation\nNational University of Singapore\nLife Sciences | 2021 - 2025\nSingapore Polytechnic\nBiomedical Sciences | 2016 - 2019\n\n\nHobbies\nPhotography | Videography | Watching Films (Just completed: The Blacklist)\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "index.html#high-medical-costs",
+    "href": "index.html#high-medical-costs",
+    "title": "Reasons:",
+    "section": "High medical costs",
+    "text": "High medical costs"
+  },
+  {
+    "objectID": "index.html#long-waiting-times-for-inpatient-beds",
+    "href": "index.html#long-waiting-times-for-inpatient-beds",
+    "title": "Reasons:",
+    "section": "Long waiting times for inpatient beds",
+    "text": "Long waiting times for inpatient beds\n. . . ## among other concerns\nBut why? Isn’t Singapore’s healthcare highly ranked globally?\n(show stats in boxes)\nAlthough Singapore’s healthcare system performed well as compared to other countries, no system is perfect. Singapore faces a unique set of challenges:\n1) rapidly ageing population, which means\n- more people stopping income flow due to retirement and hence stagnant Medisave contributions.\n- higher prevalence of non-communicable diseases (NCDs, i.e. diabetes, cardiovascular diseases, cancer, etc.) because increasing age is a risk factor\n- longer treatment duration and medical expenditure because NCDs cannot be treated overnight and sometimes are life-long diseases\n- increasing medical spending due to inflation and thus having to work past retirement age should there be unsatisfactory financial planning\n“… we have many more patients with more complex medical needs, often older, who needed longer hospital stays”, the ministry said in response to a CNA query. “This contributed to higher bed utilisation, which slowed the flow of patients from emergency departments to hospital wards.”\n- CNA report 25 Apr 2023\nIn other words, high bed utilisation increased the waiting time for patients to be admitted to a hospital ward. Is this true? What does the data tell us? Let’s find out.\n\nWhat contributes to the difference in wait times for admission to wards in local public hospitals?\nThe CNA had reported in April 2023 that the median waiting time for ward admissions had increased from about 5 hours to 7.2 hours during that period1. The health ministry had explained that it was due to the rise in number of older patients with more complex medical needs requiring longer hospitalisation1. Due to the ageing population in Singapore, long waiting time for admission to wards has been a long-standing issue over the years, and it was further exacerbated by the Covid-19 pandemic2,3."
+  },
+  {
+    "objectID": "index.html#an-introduction",
+    "href": "index.html#an-introduction",
+    "title": "Reasons",
+    "section": "An introduction",
+    "text": "An introduction\nSingapore’s healthcare system is generally divided into 2 sectors – public and private. The public hospitals make up the biggest proportion, with 8 restructured hospitals in Singapore. They operate under 3 major healthcare clusters that serve different regions of Singapore – Singapore Health Services (SingHealth) in the East, National University Health System (NUHS) in the West, and National Healthcare Group (NHG) in the Central."
+  },
+  {
+    "objectID": "index.html#the-data",
+    "href": "index.html#the-data",
+    "title": "Reasons",
+    "section": "The data",
+    "text": "The data\nThree datasets were obtained from the Ministry of Health – the waiting time for admission to wards, the bed occupancy rate, and the number of attendances at the Emergency Medicine Department (EMD), and data between January to September in the year 2023 will be analysed. Explore the data using the interactive Shiny app below."
+  },
+  {
+    "objectID": "index.html#analysis-snapshots",
+    "href": "index.html#analysis-snapshots",
+    "title": "Reasons",
+    "section": "Analysis snapshots",
+    "text": "Analysis snapshots\n1)\n\nWhat contributes to the difference in wait times for admission to wards in local public hospitals?\nThe CNA had reported in April 2023 that the median waiting time for ward admissions had increased from about 5 hours to 7.2 hours during that period1. The health ministry had explained that it was due to the rise in number of older patients with more complex medical needs requiring longer hospitalisation1. Due to the ageing population in Singapore, long waiting time for admission to wards has been a long-standing issue over the years, and it was further exacerbated by the Covid-19 pandemic2,3."
+  },
+  {
+    "objectID": "index.html#analysis-summary",
+    "href": "index.html#analysis-summary",
+    "title": "Reasons",
+    "section": "Analysis summary",
+    "text": "Analysis summary\nWhile the interactive Shiny app above provides a wealth of data for analysis, we zoom in to the scatterplots to investigate the presence of correlation between bed occupancy rates and waiting times.\nThe tables below show the correlation coefficients (R) when the independent variables (Bed Occupancy Rate or EMD Attendance) are plotted against the dependent variable (Waiting Time).\nBased on the data, the following inferences can be made:\n\nthe correlation coefficients generally vary in each hospital for each month.\nacross the months, some hospitals experience greater fluctuations in variation of R (i.e. SKH had a 0.695 difference between the highest and lowest R) while others experience smaller fluctuations (i.e. NUH with only a difference of 0.154).\nIn SGH, the maximum and minimum R values are 0.8 and 0.6 respectively, which are both the highest among all the hospitals. Therefore, it seems that bed occupancy rate is a good predictor of waiting time for admission to a ward in SGH.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat contributes to the difference in wait times for admission to wards in local public hospitals?\nThe CNA had reported in April 2023 that the median waiting time for ward admissions had increased from about 5 hours to 7.2 hours during that period1. The health ministry had explained that it was due to the rise in number of older patients with more complex medical needs requiring longer hospitalisation1. Due to the ageing population in Singapore, long waiting time for admission to wards has been a long-standing issue over the years, and it was further exacerbated by the Covid-19 pandemic2,3."
   }
 ]
