@@ -1,6 +1,7 @@
 ---
 format:
   html:
+    toc: true
     grid:
       body-width: 1000px
       sidebar-width: 0px
@@ -11,9 +12,11 @@ format:
 ::: hero-image
 ::: hero-text
 "It's better to die than to fall ill."\
--- common saying in Singapore
+-- Singaporean axiom (Giam, 2011)
 :::
 :::
+
+(source: Facebook/Tan Tock Seng Hospital, 2021)
 :::
 
 # **Reasons** {style="text-align: center"}
@@ -28,80 +31,50 @@ among other concerns
 
 # But why? Isn't Singapore's healthcare highly ranked globally?
 
-::: flex-container
-::: {.card .border-primary .mb-3 style="width: 25%; margin: 5px"}
-::: {.card-header .border-primary .text-white .bg-secondary}
-Quality -- #13
-:::
+```{r, eval=TRUE, echo=FALSE, message=FALSE,warning=FALSE}
+library(bslib)
+library(shiny)
 
-::: card-body
-Disease Prevention: #27\
+layout_column_wrap(
+  width = 1/2,
+  height = 200,
+  card(card_header("Quality -- #13", class = "card-header bg-primary"), card_body(markdown("- Disease Prevention: #27\
+                                                         - Pandemic Preparedness: #3\
+                                                         - Patient-centered Care: #5\
+                                                         - Infrastructure: #27"))),
+  card(card_header("Choice -- #12", class = "card-header bg-success"), card_body(markdown("- Affordability of Health Coverage: #3\
+                                                        - Freedom to Choose Healthcare Services: #14\
+                                                        - Access to New Treatments: #30")))
+)
+  layout_column_wrap(
+  width = 1/2,
+  height = 200,
+  card(card_header("Science & Tech -- #15", class = "card-header bg-warning"), card_body(markdown("- Medical Advances: #22\
+                                                                - Scientific Discoveries: #10\
+                                                                - Health Digitization: #16"))),
+  card(card_header("Fiscal Sustainability -- #16", class = "card-header bg-info"), card_body(markdown("- National Solvency: #28\
+                                                                       - Public Healthcare Spending: #5\
+                                                                       - Growth in Public Healthcare Spending: #28")))
+)
+```
 
-Pandemic Preparedness: #3\
-
-Patient-centered Care: #5\
-
-Infrastructure: #27
-:::
-:::
-
-::: {.card .border-success .mb-3 style="width: 25%; margin: 5px"}
-::: {.card-header .border-primary .text-white .bg-success}
-Choice -- #12
-:::
-
-::: card-body
-Affordability of Health Coverage: #3\
-
-Freedom to Choose Healthcare Services: #14\
-
-Access to New Treatments: #30
-:::
-:::
-
-::: {.card .border-warning .mb-3 style="width: 25%; margin: 5px"}
-::: {.card-header .border-primary .text-white .bg-warning}
-Science & Tech -- #15
-:::
-
-::: card-body
-Medical Advances: #22\
-
-Scientific Discoveries: #10\
-
-Health Digitization: #16
-:::
-:::
-
-::: {.card .border-info .mb-3 style="width: 25%; margin: 5px"}
-::: {.card-header .border-primary .text-white .bg-info}
-Fiscal Sustainability -- #16
-:::
-
-::: card-body
-National Solvency: #28\
-
-Public Healthcare Spending: #5\
-
-Growth in Public Healthcare Spending: #28
-:::
-:::
-:::
 ::: {.card .border-dark .mb-3 style="background-color: gold; padding: 10px 0; text-align: center; font-size: 3em"}
-Overall -- Ranking at #10
+Overall -- Global ranking at #10
 :::
+
+(source: Rigney, 2023)
 
 # Shortcomings
+
 Although Singapore's healthcare system performed well as compared to other countries, no system is perfect. Singapore faces a unique set of challenges that arises from a rapidly ageing population:\
 
-- more people stopping income flow due to retirement and hence stagnant Medisave contributions.\
+-   More people stopping income flow due to retirement and hence stagnant Medisave contributions.\
 
-- higher prevalence of non-communicable diseases (NCDs, i.e. diabetes, cardiovascular diseases, cancer, etc.) because increasing age is a risk factor.\
+-   Higher prevalence of non-communicable diseases (NCDs, i.e. diabetes, cardiovascular diseases, cancer, etc.) because increasing age is a risk factor (Tan et al., 2021).\
 
-- longer treatment duration and medical expenditure because NCDs cannot be treated overnight and sometimes are life-long diseases.\
+-   Longer treatment duration and medical expenditure because NCDs cannot be treated overnight and sometimes are life-long diseases (Tan et al., 2021).\
 
-- increasing medical spending due to inflation and thus having to work past retirement age should there be unsatisfactory financial planning.
-
+-   Increasing medical spending due to inflation and thus having to work past retirement age should there be unsatisfactory financial planning.
 
 > "... we have many more patients with more complex medical needs, often older, who needed longer hospital stays", the ministry said in response to a CNA query. "This contributed to higher bed utilisation, which slowed the flow of patients from emergency departments to hospital wards."\
 > - CNA report 25 Apr 2023
@@ -110,7 +83,7 @@ Although Singapore's healthcare system performed well as compared to other count
 
 ## An introduction
 
-Singapore's healthcare system is generally divided into 2 sectors -- public and private. The public hospitals make up the biggest proportion, with 8 restructured hospitals in Singapore. They operate under 3 major healthcare clusters that serve different regions of Singapore -- Singapore Health Services (SingHealth) in the East, National University Health System (NUHS) in the West, and National Healthcare Group (NHG) in the Central.
+Singapore's healthcare system is generally divided into 2 sectors -- public and private. The public hospitals make up the biggest proportion, with 8 restructured hospitals in Singapore (Ong et al., 2018). They operate under 3 major healthcare clusters that serve different regions of Singapore -- Singapore Health Services (SingHealth) in the East, National University Health System (NUHS) in the West, and National Healthcare Group (NHG) in the Central (Tham, 2022).
 
 ```{r, eval=TRUE, echo=FALSE, message=FALSE,warning=FALSE}
 library(leaflet)
@@ -128,24 +101,38 @@ leaflet() %>%
 
 ## The data
 
-Three datasets were obtained from the Ministry of Health -- the waiting time for admission to wards, the bed occupancy rate, and the number of attendances at the Emergency Medicine Department (EMD), and data between January to September in the year 2023 will be analysed. Explore the data using the interactive Shiny app below.
+Three datasets were obtained from the Ministry of Health (MOH) -- the waiting time for admission to wards (available [here](https://www.moh.gov.sg/resources-statistics/healthcare-institution-statistics/waiting-time-for-admission-to-ward)), the bed occupancy rate (BOR) (available [here](https://www.moh.gov.sg/resources-statistics/healthcare-institution-statistics/beds-occupancy-rate-(bor))), and the number of attendances at the Emergency Medicine Department (EMD) (available [here](https://www.moh.gov.sg/resources-statistics/healthcare-institution-statistics/attendances-at-emergency-medicine-departments)), and data between January to September in the year 2023 will be analysed. Explore the data using the interactive Shiny app below.
+
+::: {.callout-note collapse="true"}
+According to MOH, the statistics exclude KK Women's and Children's Hospital and National University Hospital (Children). The waiting time and EMD attendance are reported for the Urgent Care Clinic at Alexandra Hospital, and Emergency Medicine Departments at all other hospitals, while BOR is reported for the hospitals as a whole.
+
+[Statistics definitions:]{.underline}
+
+-   **Waiting Time for Admission to Ward:** The waiting time for admission to ward is computed from the time "Decision by doctor to admit patient" to the "Time patient exits EMD" (to go to inpatient ward).
+
+-   **Beds Occupancy Rate:** The beds occupancy rate is calculated based on the midnight bed census at each hospital.
+
+-   **Attendances at Emergency Medicine Departments:** Daily attendance figures include all patients who are presented at the EMD regardless of urgency of medical conditions.
+:::
 
 ```{=html}
 <iframe height="700px" width="100%" frameborder="no" src="https://bocongg.shinyapps.io/proj_app/"> </iframe>
 ```
 ## Analysis summary
 
+### Bed Occupancy Rates vs Waiting Times
+
 While the interactive Shiny app above provides a wealth of data for analysis, we zoom in to the scatterplots to investigate the presence of correlation between bed occupancy rates and waiting times.
 
-The tables below show the correlation coefficients (R) when the independent variables (Bed Occupancy Rate or EMD Attendance) are plotted against the dependent variable (Waiting Time).
+The table below show the correlation coefficients (R) when the independent variable (Bed Occupancy Rate) was plotted against the dependent variable (Waiting Time).
 
 Based on the data, the following inferences can be made:
 
-- the correlation coefficients generally vary in each hospital for each month.
+-   The correlation coefficients generally vary in each hospital for each month. The maximum R value
 
-- across the months, some hospitals experience greater fluctuations in variation of R (i.e. SKH had a 0.695 difference between the highest and lowest R) while others experience smaller fluctuations (i.e. NUH with only a difference of 0.154).
+-   Across the months, some hospitals experience greater fluctuations in variation of R (i.e. SKH had a 0.695 difference between the highest and lowest R) while others experience smaller fluctuations (i.e. NUH with only a difference of 0.154).
 
-- In SGH, the maximum and minimum R values are 0.8 and 0.6 respectively, which are both the highest among all the hospitals. Therefore, it seems that bed occupancy rate is a good predictor of waiting time for admission to a ward in SGH.
+-   In SGH, the maximum and minimum R values are 0.8 and 0.6 respectively, which are both the highest among all the hospitals. Therefore, it seems that bed occupancy rate is a good predictor of waiting time for admission to a ward in SGH.
 
 ```{r, eval=TRUE, echo=FALSE, message=FALSE,warning=FALSE}
 library(DT)
@@ -224,21 +211,54 @@ for (h in 1:8){
 }
 ```
 
------------------
-
 ```{r, eval=TRUE, echo=FALSE, message=FALSE,warning=FALSE}
 scatterBORtable <- mutate(scatterBORtable, ID = row_number())
 datatable(scatterBORtable, caption = 'Table 1: Correlation Coefficients for Bed Occupancy Rate and Waiting Time.')
 ```
 
-------------------
+------------------------------------------------------------------------
+
+### EMD Attendances vs Waiting Times
+
+The tables below show the correlation coefficients (R) when the independent variable (EMD Attendance) was plotted against the dependent variable (Waiting Time).
+
+From the data, we can observe that:
+
+-   The maximum correlation between EMD attendance and Waiting Time is within the 0.3 range for AH and SKH, 0.5 range for CGH, KTPH, NUH and TTSH, and 0.6 range for NTFGH and SGH, with SGH having the highest maximum R value of 0.65.
+
+-   The minimum correlation across all hospitals range from -0.185 in SKH to 0.31 in TTSH.
+
+-   Generally, the range between these maximum and minimum correlations are small with a majority being 0.5 and below. This indicates that there is a low correlation between EMD Attendances and Waiting Time (Calkins, 2005).
 
 ```{r, eval=TRUE, echo=FALSE, message=FALSE,warning=FALSE}
-scatterEMDtable <- mutate(scatterBORtable, ID = row_number())
+scatterEMDtable <- mutate(scatterEMDtable, ID = row_number())
 datatable(scatterEMDtable, caption = 'Table 2: Correlation Coefficients for EMD Attendance and Waiting Time.')
 ```
 
+## Conclusion
 
-### What contributes to the difference in wait times for admission to wards in local public hospitals?
+Based on the data analysis above, we can conclude that Bed Occupancy Rates generally have a higher correlation with Waiting Times as compared to EMD Attendance. The correlation is stronger in hospitals with a smaller range between the maximum and minimum R value, with all monthly correlations above 0.5. Since NUH and SGH fit these criteria, we can use the Bed Occupancy Rates to predict Waiting Time in these hospitals. No hospital fit these criteria for correlation between EMD Attendance and Waiting Time, hence the daily attendance figures at the EMD cannot be used to predict the waiting time for admission to a ward.
 
-The CNA had reported in April 2023 that the median waiting time for ward admissions had increased from about 5 hours to 7.2 hours during that period^[1](https://www.channelnewsasia.com/singapore/moh-hospital-waiting-times-7-hours-covid-19-3442136)^. The health ministry had explained that it was due to the rise in number of older patients with more complex medical needs requiring longer hospitalisation^[1](https://www.channelnewsasia.com/singapore/moh-hospital-waiting-times-7-hours-covid-19-3442136)^. Due to the ageing population in Singapore, long waiting time for admission to wards has been a long-standing issue over the years, and it was further exacerbated by the Covid-19 pandemic^[2](https://www.channelnewsasia.com/singapore/hospitals-beds-waiting-time-50-hours-admission-ng-teng-fong-sengkang-3014596),[3](https://www.straitstimes.com/singapore/health/most-public-hospitals-saw-more-ae-patients-in-past-week-compared-with-past-month)^.
+## References
+
+Calkins, K. G. (2005, July 18). *Correlation Coefficients*. Applied Statistics - Lesson 5. <https://www.andrews.edu/~calkins/math/edrm611/edrm05.htm>
+
+CNA. (2023, April 25). *Median wait time for admission to hospital wards has gone up to 7.2 hours: MOH*. CNA. <https://www.channelnewsasia.com/singapore/moh-hospital-waiting-times-7-hours-covid-19-3442136>
+
+Giam, G. (2011, October 18). Gerald Giam's speech (Debate on President's Address). *The Workers' Party*. <https://www.wp.sg/gerald-giams-speech-debate-on-presidents-address/>
+
+Ministry of Health. (2023a). *Attendances at Emergency Medicine Departments*. <https://www.moh.gov.sg/resources-statistics/healthcare-institution-statistics/attendances-at-emergency-medicine-departments>
+
+Ministry of Health. (2023b). *Beds Occupancy Rate (BOR)*. <https://www.moh.gov.sg/resources-statistics/healthcare-institution-statistics/beds-occupancy-rate-(bor)>
+
+Ministry of Health. (2023c). *Waiting Time for Admission to Ward*. <https://www.moh.gov.sg/resources-statistics/healthcare-institution-statistics/waiting-time-for-admission-to-ward>
+
+Ong, S. E., Tyagi, S., Lim, J. M., Chia, K. S., & Legido-Quigley, H. (2018). Health systems reforms in Singapore: A qualitative study of key stakeholders. *Health Policy*, *122*(4), 431--443. <https://doi.org/10.1016/j.healthpol.2018.02.005>
+
+Rigney, G. (2023, March 14). *Singapore: #10 in the 2022 World Index of Healthcare Innovation*. Medium. <https://freopp.org/singapore-10-in-the-2022-world-index-of-healthcare-innovation-3942e86e986c>
+
+Tan, C. C., Lam, C. S. P., Matchar, D. B., Zee, Y. K., & Wong, J. E. L. (2021). Singapore's health-care system: Key features, challenges, and shifts. *The Lancet*, *398*(10305), 1091--1104. <https://doi.org/10.1016/S0140-6736(21)00252-X>
+
+Tan Tock Seng Hospital. (2021, September 19). *The last week has been rough\...* Facebook. <https://www.facebook.com/TanTockSengHospital/photos/a.475568113068/10159769130133069/>
+
+Tham, D. (2022, September 26). *Healthcare clusters to manage residents' health by region, run more community interventions under Healthier SG*. CNA. <https://www.channelnewsasia.com/singapore/healthiersg-regional-health-manager-healthcare-cluster-nuhs-nhg-singhealth-2965946>
